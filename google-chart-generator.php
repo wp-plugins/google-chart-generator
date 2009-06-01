@@ -30,43 +30,59 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # 	wp_schedule_event(time(), 'daily', 'google_chart_generator');
 # }
 
-function delete_spam_now() {
+function gcg_chart_now() {
 	global $wpdb;
-	$wpdb->query("delete from $wpdb->comments where comment_approved='spam';");
-	$wpdb->query("OPTIMIZE TABLE $wpdb->comments;");
-}
-
-function get_spam_count() {
-	global $wpdb;
-	$gcg_spam_count = $wpdb->get_var("SELECT COUNT(*) from $wpdb->comments where comment_approved='spam';");
-	
-	echo $gcg_spam_count;
-}
-
-function reschedule_delete_spam() {
-	wp_reschedule_event( (time()+60), 'daily', 'google_chart_generator'); 
 }
 
 add_action('admin_menu', 'gcg_menu');
+add_action('admin_head', 'gcg_admin_head');
 
 function gcg_menu() {
   add_options_page('Google Chart Generator Options', 'Google Chart Generator', 8, __FILE__, 'gcg_options');
+}
+
+function gcg_admin_head() {
+	?>
+	<script type="text/javascript">
+		function check(gcg_charttype)
+			{
+			document.getElementById("chart_link").value=gcg_charttype;
+			}
+		function selText()
+			{
+			document.getElementById("chart_link").select();
+			}
+	</script>
+	
+<script type="text/javascript">
+	function gcg_create_link()
+	{
+	chart=document.forms[0].gcg_charttype;
+	charttype="cht=p3";
+	for (i=0;i<chart.length;++ i)
+	{
+	 if (chart[i].checked)
+		{
+		charttype="cht=" + chart[i].value;
+		}
+	}
+	chartwidth=document.write(gcg_width);
+	chartheight=document.write(gcg_height);
+	document.getElementById("chart_link").value="<img src=\"http://chart.apis.google.com/chart?" + charttype + "&amp;" + chartwidth + "x" + chartheight + "\" />";
+	}
+</script>
+	
+<?php
 }
 
 function gcg_options() {
 	$valid_nonce = wp_verify_nonce($_REQUEST['_wpnonce'],'google_chart_generator');
 	if ( $valid_nonce ) {
 		if(isset($_REQUEST['delete_spam_now_button'])) {
-			delete_spam_now();
+			gcg_chart_now();
 		}
 		if(isset($_REQUEST['google_chart_generator_button'])) {
 			gcg_start_schedule();
-		}
-		if(isset($_REQUEST['stop_deleting_spam_button'])) {
-			gcg_stop_schedule();
-		}
-		if(isset($_REQUEST['reschedule_delete_spam_button'])) {
-			reschedule_delete_spam();
 		}
 	}
   
@@ -79,58 +95,27 @@ function gcg_options() {
 	<div class="wrap">
 	<h2>Google Chart Generator Options</h2>
 
-	<?php 
-	echo '<form name="delete_spam_now_button" action="" method="post">';
-	if ( function_exists('wp_nonce_field') )
-	wp_nonce_field('google_chart_generator');
+	<form>
+		<input type="radio" name="gcg_charttype" onclick="check(this.value)" value="bvs">Bar Chart<br />
+		<input type="radio" name="gcg_charttype" onclick="check(this.value)" value="lc">Line Chart<br />
+		<input type="radio" name="gcg_charttype" onclick="check(this.value)" value="p3">Pie Chart<br />
+		<input type="radio" name="gcg_charttype" onclick="check(this.value)" value="gom">Google-o-Meter<br />
+		<br />
+		<input type="text" size="5" name="gcg_width" value="250">Width<br />
+		<input type="text" size="5" name="gcg_height" value="100">Height<br />
+		<br />
+		<input type="text" id="chart_link" size="60" value="copy this code">
+		<input type="button" onclick="gcg_create_link()" value="Update Chart">
+		<input type="button" value="select" onclick="selText()"> 
+	</form>
 
-	echo '<input type="hidden" name="delete_spam_now_button" value="update" />';
-	echo '<div><input id="delete_spam_now_button" type="submit" value="Delete spam now &raquo;" /></div>';
-	echo "</form>\n<br />";
-	
-	if (wp_next_scheduled('google_chart_generator') == NULL)
-	{
-		echo '<form name="google_chart_generator_button" action="" method="post">';
-		if ( function_exists('wp_nonce_field') )
-		wp_nonce_field('google_chart_generator');
-	
-		echo '<input type="hidden" name="google_chart_generator_button" value="update" />';
-		echo '<div><input id="google_chart_generator_button" type="submit" value="Delete spam daily &raquo;" /></div>';
-		echo "</form>\n";
-	} 
-	else 
-	{
-		echo '<form name="stop_deleting_spam_button" action="" method="post">';
-		if ( function_exists('wp_nonce_field') )
-		wp_nonce_field('google_chart_generator');
-	
-		echo '<input type="hidden" name="stop_deleting_spam_button" value="update" />';
-		echo '<div><input id="stop_deleting_spam_button" type="submit" value="Stop Deleting Spam &raquo;" /></div>';
-		echo "</form>\n";
-	
-	
-		echo '<form name="reschedule_delete_spam_button" action="" method="post">';
-		if ( function_exists('wp_nonce_field') )
-		wp_nonce_field('google_chart_generator');
 
-		echo '<input type="hidden" name="reschedule_delete_spam_button" value="update" />';
-		echo '<div><input id="reschedule_delete_spam_button" type="submit" value="Reschedule to start in 1 minute &raquo;" /> <i>Helpful for testing cron</i></div>';
-		echo "</form>\n<br />"; 
-		
-	}
-	?>
 	<br />
 	<br />
-	Deactivating this plugin will stop the schedule. <br />
 	</div>
 
 	<?php
 	}
 
-register_deactivation_hook(__FILE__, 'gcg_stop_schedule');
-
-function gcg_stop_schedule() {
-	wp_clear_scheduled_hook('google_chart_generator');
-}
 
 ?>
