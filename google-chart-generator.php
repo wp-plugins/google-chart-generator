@@ -57,6 +57,7 @@ function gcg_admin_head() {
 <script type="text/javascript">
 	function gcg_create_link()
 	{
+	// Chart Type
 	chart=document.forms[0].gcg_charttype;
 	charttype="cht=p3";
 	for (i=0;i<chart.length;++ i)
@@ -66,9 +67,27 @@ function gcg_admin_head() {
 		charttype="cht=" + chart[i].value;
 		}
 	}
-	chartwidth=document.write(gcg_width);
-	chartheight=document.write(gcg_height);
-	document.getElementById("chart_link").value="<img src=\"http://chart.apis.google.com/chart?" + charttype + "&amp;" + chartwidth + "x" + chartheight + "\" />";
+	// Chart Size
+	chart_width = document.forms[0].gcg_width.value;
+	chart_height = document.forms[0].gcg_height.value;
+	// Chart Data
+	chartdata=document.forms[0].gcg_chartdata;
+	data="";
+	for (i=0;i<chartdata.length;++ i)
+	{
+	  if (i>0)
+	  {
+		data=data+",";
+	  }
+	  if (chartdata[i].value)
+	  {
+		data=data + chartdata[i].value;
+	  }
+	}
+	
+	document.getElementById("chart_link").value="http://chart.apis.google.com/chart?" + charttype + "&chs=" + chart_width + "x" + chart_height + "&chd=t:" + data;
+	document.getElementById("chart_url").value=chart_link;
+	document.getElementById("chart").src="\"" + chart_link + "\"";
 	}
 </script>
 	
@@ -96,17 +115,23 @@ function gcg_options() {
 	<h2>Google Chart Generator Options</h2>
 
 	<form>
-		<input type="radio" name="gcg_charttype" onclick="check(this.value)" value="bvs">Bar Chart<br />
-		<input type="radio" name="gcg_charttype" onclick="check(this.value)" value="lc">Line Chart<br />
-		<input type="radio" name="gcg_charttype" onclick="check(this.value)" value="p3">Pie Chart<br />
-		<input type="radio" name="gcg_charttype" onclick="check(this.value)" value="gom">Google-o-Meter<br />
+		<input type="radio" name="gcg_charttype" value="bvs">Bar Chart<br />
+		<input type="radio" name="gcg_charttype" value="lc">Line Chart<br />
+		<input type="radio" name="gcg_charttype" value="p3">Pie Chart<br />
+		<input type="radio" name="gcg_charttype" value="gom">Google-o-Meter<br />
 		<br />
 		<input type="text" size="5" name="gcg_width" value="250">Width<br />
 		<input type="text" size="5" name="gcg_height" value="100">Height<br />
 		<br />
+		<input type="text" size="5" name="gcg_chartdata" value="30">Data1<br />
+		<input type="text" size="5" name="gcg_chartdata" value="100">Data2<br />
+		<br />
 		<input type="text" id="chart_link" size="60" value="copy this code">
 		<input type="button" onclick="gcg_create_link()" value="Update Chart">
 		<input type="button" value="select" onclick="selText()"> 
+		<br />
+		<br />
+		<img id="chart" src="http://chart.apis.google.com/chart?cht=p3&chd=s:Uf9a&chs=250x100&chl=January|February|March|April" />
 	</form>
 
 
