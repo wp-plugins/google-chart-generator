@@ -77,7 +77,7 @@ function gcg_head() {
 	// Chart Data
 	chartdata=document.forms[0].gcg_chartdata;
 	data="";
-	for (i=0;i<chartdata.length;++i)
+	for (i=0;i<chartdata.length;i++)
 	{
 	  if (chartdata[i].value)
 	  {
@@ -124,14 +124,18 @@ function gcg_options() {
 		<span>About this Plugin:</span>
 		</h3>
 		<div class="inside">
-		<a class="sm_button sm_pluginHome" href="http://www.arnebrachhold.de/redir/sitemap-home/">Plugin Homepage</a><br />
-		<a class="sm_button sm_pluginHome" href="http://www.arnebrachhold.de/redir/sitemap-feedback/">Suggest a Feature</a>
-		<a class="sm_button sm_pluginList" href="http://www.arnebrachhold.de/redir/sitemap-list/">Notify List</a>
-		<a class="sm_button sm_pluginSupport" href="http://www.arnebrachhold.de/redir/sitemap-support/">Support Forum</a>
-		<a class="sm_button sm_pluginBugs" href="http://www.arnebrachhold.de/redir/sitemap-bugs/">Report a Bug</a>
-		<a class="sm_button sm_donatePayPal" href="http://www.arnebrachhold.de/redir/sitemap-paypal/">Donate with PayPal</a>
-		<a class="sm_button sm_donateAmazon" href="http://www.arnebrachhold.de/redir/sitemap-amazon/">My Amazon Wish List</a>
-		</div>
+		<ul>
+		<li><a href="http://brockangelo.com/wordpress/plugins/google-chart-generator/">Plugin Homepage</a></li>
+		<li><a href="http://brockangelo.com/">Author Homepage</a><br /></div></li>
+		<br />
+		<center><form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="5771120">
+<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form><br /><br /></center>
+
+		</ul>
 		</div>
 		</div>
 		</div>
