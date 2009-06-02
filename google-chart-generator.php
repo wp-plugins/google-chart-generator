@@ -52,19 +52,23 @@ function gcg_admin_head() {
 			{
 			document.getElementById("chart_link").select();
 			}
+		function refresh_chart()
+			{
+			document.getElementById("chart").src="http://brockangelo.com/wp-content/uploads/2008/10/change.jpg?<?php echo time(); ?>";
+			}
 	</script>
 	
 <script type="text/javascript">
 	function gcg_create_link()
 	{
 	// Chart Type
-	chart=document.forms[0].gcg_charttype;
+	type=document.forms[0].gcg_charttype;
 	charttype="cht=p3";
-	for (i=0;i<chart.length;++ i)
+	for (i=0;i<type.length;++ i)
 	{
-	 if (chart[i].checked)
+	 if (type[i].checked)
 		{
-		charttype="cht=" + chart[i].value;
+		charttype="cht=" + type[i].value;
 		}
 	}
 	// Chart Size
@@ -73,24 +77,22 @@ function gcg_admin_head() {
 	// Chart Data
 	chartdata=document.forms[0].gcg_chartdata;
 	data="";
-	for (i=0;i<chartdata.length;++ i)
+	for (i=0;i<chartdata.length;++i)
 	{
-	  if (i>0)
-	  {
-		data=data+",";
-	  }
 	  if (chartdata[i].value)
 	  {
 		data=data + chartdata[i].value;
+		if (chartdata[i+1].value)
+		{
+		data=data + ",";
+		}
 	  }
 	}
-	
 	document.getElementById("chart_link").value="http://chart.apis.google.com/chart?" + charttype + "&chs=" + chart_width + "x" + chart_height + "&chd=t:" + data;
-	document.getElementById("chart_url").value=chart_link;
-	document.getElementById("chart").src="\"" + chart_link + "\"";
+	document.getElementById("chart").src=document.getElementById("chart_link").value;
 	}
 </script>
-	
+	<?php $gcg_chart = "http://chart.apis.google.com/chart?cht=p3&chd=s:Uf9a&chs=250x100&chl=January|February|March|April"; ?>
 <?php
 }
 
@@ -123,16 +125,24 @@ function gcg_options() {
 		<input type="text" size="5" name="gcg_width" value="250">Width<br />
 		<input type="text" size="5" name="gcg_height" value="100">Height<br />
 		<br />
-		<input type="text" size="5" name="gcg_chartdata" value="30">Data1<br />
-		<input type="text" size="5" name="gcg_chartdata" value="100">Data2<br />
+		<input type="text" size="5" name="gcg_chartdata" value="10">Data1<br />
+		<input type="text" size="5" name="gcg_chartdata" value="30">Data2<br />
+		<input type="text" size="5" name="gcg_chartdata" value="50">Data3<br />
+		<input type="text" size="5" name="gcg_chartdata" value="70">Data4<br />
+		<input type="text" size="5" name="gcg_chartdata" value="">Data5<br />
+		<input type="text" size="5" name="gcg_chartdata" value="">Data6<br />
+		<input type="text" size="5" name="gcg_chartdata" value="">Data7<br />
+		<input type="text" size="5" name="gcg_chartdata" value="">Data8<br />
+		<br />
+		<img id="chart" src="http://chart.apis.google.com/chart?cht=p3&chd=s:Uf9a&chs=250x100&chl=January|February|March|April" style="border: 1px solid #D8D1BE" />
+		<br />
 		<br />
 		<input type="text" id="chart_link" size="60" value="copy this code">
 		<input type="button" onclick="gcg_create_link()" value="Update Chart">
 		<input type="button" value="select" onclick="selText()"> 
 		<br />
 		<br />
-		<img id="chart" src="http://chart.apis.google.com/chart?cht=p3&chd=s:Uf9a&chs=250x100&chl=January|February|March|April" />
-	</form>
+</form>
 
 
 	<br />
