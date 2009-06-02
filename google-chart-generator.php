@@ -3,7 +3,7 @@
 Plugin Name: Google Chart Generator
 Plugin URI: http://brockangelo.com/wordpress/plugins/google-chart-generator/
 Description: Allows the user to create and insert a Google Chart in posts and pages.
-Version: 1.0.1
+Version: 1.0.2
 Author: Brock Angelo
 Author URI: http://brockangelo.com
 
@@ -52,10 +52,7 @@ function gcg_head() {
 			{
 			document.getElementById("chart_link").select();
 			}
-		function refresh_chart()
-			{
-			document.getElementById("chart").src="http://brockangelo.com/wp-content/uploads/2008/10/change.jpg?<?php echo time(); ?>";
-			}
+
 	</script>
 	
 <script type="text/javascript">
@@ -92,27 +89,12 @@ function gcg_head() {
 	document.getElementById("chart").src=document.getElementById("chart_link").value;
 	}
 </script>
-	<?php $gcg_chart = "http://chart.apis.google.com/chart?cht=p3&chd=s:Uf9a&chs=250x100&chl=January|February|March|April"; ?>
+
 <?php
 }
 
 function gcg_options() {
-	$valid_nonce = wp_verify_nonce($_REQUEST['_wpnonce'],'google_chart_generator');
-	if ( $valid_nonce ) {
-		if(isset($_REQUEST['delete_spam_now_button'])) {
-			gcg_chart_now();
-		}
-		if(isset($_REQUEST['google_chart_generator_button'])) {
-			gcg_start_schedule();
-		}
-	}
-  
-	if ( !empty($_POST ) ) : ?>
-	<div id="message" class="updated fade">
-	<strong>Chart updated</strong>
-	</div>
-	<?php endif; ?>
-
+	?>  
 	<div class="wrap">
 	<div id="icon-options-general" class="icon32"><br/></div>
 	<h2>Google Chart Generator Options</h2>
@@ -126,16 +108,24 @@ function gcg_options() {
 		<div class="inside">
 		<ul>
 		<li><a href="http://brockangelo.com/wordpress/plugins/google-chart-generator/">Plugin Homepage</a></li>
-		<li><a href="http://brockangelo.com/">Author Homepage</a><br /></div></li>
-		<br />
-		<center><form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-<input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="hosted_button_id" value="5771120">
-<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
-</form><br /><br /></center>
-
+		<li><a href="http://brockangelo.com/">Author Homepage</a><br /></li>
+		<li><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5858131">Support this Plugin</a></li><br />
 		</ul>
+		</div>
+		</div>
+		<div id="gcg_sidebar" class="postbox">
+		<h3 class="hndle">
+		<span>Version Notes: 1.0.2</span>
+		</h3>
+		<div class="inside">
+		<ul>
+		<li>This plugin was accidentally released before development was complete. So this is the beta version. :-) Some known issues:<br/>
+		1. Doesn't actually support 8 data sets.<br />
+		2. There are so many more Google Charts. More to come.<br />
+		3. Changing the color and adding labels is in the works.<br /><br />
+		If you like the direction this plugin is headed, please <a href="http://brockangelo.com/wordpress/plugins/google-chart-generator/">leave feedback</a> and <a href="http://wordpress.org/extend/plugins/google-chart-generator/">give me five stars</a>.</li><br />
+		</ul>
+		</div>
 		</div>
 		</div>
 		</div>

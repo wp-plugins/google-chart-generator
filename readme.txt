@@ -5,7 +5,7 @@ http://brockangelo.com/wordpress/plugins/google-chart-generator
 Tags: post, insert, google, api, charts, graphs, data
 Requires at least: 2.1.0
 Tested up to: 2.7.1
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 
 
 Allows the user to create and insert a Google Chart.
@@ -49,5 +49,6 @@ Planned Features:
 1. Add button on the write post screen. (for write/edit and posts/pages)
 1. Save charts to a table so that you can insert "favorite charts"
 
+* Version 1.0.2: General scrambling associated with an unplanned beta release.
 * Version 1.0.1: I accidentally release this to the public before it was ready, so I decided to go ahead and release what I have now. I'm actively developing this, so please leave <a href="http://brockangelo.com/wordpress/plugins/google-chart-generator/">feedback</a>.
 * Version 1.0: Very basic version. My goal is to get this thing off the ground as soon as possible. 
