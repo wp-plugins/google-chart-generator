@@ -116,21 +116,61 @@ function gcg_options() {
 	<div class="wrap">
 	<div id="icon-options-general" class="icon32"><br/></div>
 	<h2>Google Chart Generator Options</h2>
+	<div id="poststuff" class="metabox-holder">
+		<div class="inner-sidebar" width="50%">
+		<div id="side-sortables" class="meta-box-sortabless ui-sortable" style="position: relative;">
+		<div id="gcg_sidebar" class="postbox">
+		<h3 class="hndle">
+		<span>About this Plugin:</span>
+		</h3>
+		<div class="inside">
+		<a class="sm_button sm_pluginHome" href="http://www.arnebrachhold.de/redir/sitemap-home/">Plugin Homepage</a><br />
+		<a class="sm_button sm_pluginHome" href="http://www.arnebrachhold.de/redir/sitemap-feedback/">Suggest a Feature</a>
+		<a class="sm_button sm_pluginList" href="http://www.arnebrachhold.de/redir/sitemap-list/">Notify List</a>
+		<a class="sm_button sm_pluginSupport" href="http://www.arnebrachhold.de/redir/sitemap-support/">Support Forum</a>
+		<a class="sm_button sm_pluginBugs" href="http://www.arnebrachhold.de/redir/sitemap-bugs/">Report a Bug</a>
+		<a class="sm_button sm_donatePayPal" href="http://www.arnebrachhold.de/redir/sitemap-paypal/">Donate with PayPal</a>
+		<a class="sm_button sm_donateAmazon" href="http://www.arnebrachhold.de/redir/sitemap-amazon/">My Amazon Wish List</a>
+		</div>
+		</div>
+		</div>
+		</div>
+	<div class="has-sidebar">
+	<div id="post-body-content" class="has-sidebar-content">
+	<div class="meta-box-sortabless">
 	<form>
-		<table width="80%">
-		<tr>
-		<td>
-		<h2>Chart Type</h2>
+
+		<div id="chart_box" class="postbox">
+		<h3 id="chart_box_hndle" class="hndle">Google Chart</h3>
+		<div id="chart_box_inside" class="inside">
+		<img id="chart" src="http://chart.apis.google.com/chart?cht=p3&chd=s:Uf9a&chs=250x100&chl=January|February|March|April" style="border: 1px solid #D8D1BE" />
+		<br />
+		<br />
+		<input type="text" id="chart_link" size="50" value="copy this code"><br /><br />
+		<input type="button" class="button-primary" onclick="gcg_create_link()" value="Update Chart">
+		<input type="button" class="button" value="select" onclick="selText()"> 
+		</div>
+		</div>
+		
+		<div id="chart_type_box" class="postbox">
+		<h3 id="chart_type_box_hndle" class="hndle">Chart Type</h3>
+		<div id="chart_type_box_inside" class="inside">
 		<input type="radio" name="gcg_charttype" value="bvs">Bar Chart<br />
 		<input type="radio" name="gcg_charttype" value="lc">Line Chart<br />
 		<input type="radio" name="gcg_charttype" value="p3">Pie Chart<br />
-		<input type="radio" name="gcg_charttype" value="gom">Google-o-Meter<br />
-		<br />
-		<h2>Chart Size</h2>
+		<input type="radio" name="gcg_charttype" value="gom">Google-o-Meter<br /></div>
+		</div>
+		
+		<div id="chart_size_box" class="postbox">
+		<h3 id="chart_size_box_hndle" class="hndle">Chart Size</h3>
+		<div id="chart_size_box_inside" class="inside">
 		<input type="text" size="4" name="gcg_width" value="250">Width<br />
-		<input type="text" size="4" name="gcg_height" value="100">Height<br />
-		<br />
-		<h2>Data Points</h2>
+		<input type="text" size="4" name="gcg_height" value="100">Height<br /></div>
+		</div>
+		
+		<div id="data_points_box" class="postbox">
+		<h3 id="data_points_box_hndle" class="hndle">Data Points</h3>
+		<div id="data_points_box_inside" class="inside">
 		<input type="text" size="4" name="gcg_chartdata" value="15">Data1<br />
 		<input type="text" size="4" name="gcg_chartdata" value="45">Data2<br />
 		<input type="text" size="4" name="gcg_chartdata" value="30">Data3<br />
@@ -138,28 +178,19 @@ function gcg_options() {
 		<input type="text" size="4" name="gcg_chartdata" value="">Data5<br />
 		<input type="text" size="4" name="gcg_chartdata" value="">Data6<br />
 		<input type="text" size="4" name="gcg_chartdata" value="">Data7<br />
-		<input type="text" size="4" name="gcg_chartdata" value="">Data8<br />
-		<br />
-		</td>
-		<td valign="top">
-		<br />
-		<br />
-		<img id="chart" src="http://chart.apis.google.com/chart?cht=p3&chd=s:Uf9a&chs=250x100&chl=January|February|March|April" style="border: 1px solid #D8D1BE" />
-		<br />
-		<br />
-		<input type="text" id="chart_link" size="30" value="copy this code"><br /><br />
-		<input type="button" class="button-primary" onclick="gcg_create_link()" value="Update Chart">
-		<input type="button" class="button" value="select" onclick="selText()"> 
-		<br />
-		<br />
-		</td>
-		</tr>
-		</table>
+		<input type="text" size="4" name="gcg_chartdata" value="">Data8<br /></div>
+		</div>
+	
+		
 </form>
 
-
+	
+	
+		</div>
+		</div>
 	<br />
 	<br />
+	</div>
 	</div>
 
 	<?php
