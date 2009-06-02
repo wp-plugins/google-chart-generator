@@ -4,7 +4,7 @@ Donate link: http://brockangelo.com/wordpress/plugins/google-chart-generator
 Tags: post, insert, google, api, charts, graphs, data
 Requires at least: 2.1.0
 Tested up to: 2.7.1
-Stable tag: 1.0
+Stable tag: trunk
 
 Allows the user to create and insert a Google Chart.
 

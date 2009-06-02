@@ -35,13 +35,13 @@ function gcg_chart_now() {
 }
 
 add_action('admin_menu', 'gcg_menu');
-add_action('admin_head', 'gcg_admin_head');
+add_action('admin_head', 'gcg_head');
 
 function gcg_menu() {
   add_options_page('Google Chart Generator Options', 'Google Chart Generator', 8, __FILE__, 'gcg_options');
 }
 
-function gcg_admin_head() {
+function gcg_head() {
 	?>
 	<script type="text/javascript">
 		function check(gcg_charttype)
