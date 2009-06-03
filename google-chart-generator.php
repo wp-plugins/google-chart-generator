@@ -3,7 +3,7 @@
 Plugin Name: Google Chart Generator
 Plugin URI: http://brockangelo.com/wordpress/plugins/google-chart-generator/
 Description: Allows the user to create and insert a Google Chart in posts and pages.
-Version: 1.0.2
+Version: 1.0.3
 Author: Brock Angelo
 Author URI: http://brockangelo.com
 
@@ -63,14 +63,16 @@ function gcg_head() {
 	charttype="cht=p3";
 	for (i=0;i<type.length;++ i)
 	{
-	 if (type[i].checked)
+		 if (type[i].checked)
 		{
-		charttype="cht=" + type[i].value;
+			charttype="cht=" + type[i].value;
 		}
 	}
+		
 	// Chart Size
 	chart_width = document.forms[0].gcg_width.value;
 	chart_height = document.forms[0].gcg_height.value;
+	
 	// Chart Data
 	chartdata=document.forms[0].gcg_chartdata;
 	data="";
@@ -85,7 +87,78 @@ function gcg_head() {
 		}
 	  }
 	}
-	document.getElementById("chart_link").value="http://chart.apis.google.com/chart?" + charttype + "&chs=" + chart_width + "x" + chart_height + "&chd=t:" + data;
+	
+	// Chart Background
+	chart_bg = document.forms[0].gcg_bgcolor.value;
+	if (chart_bg != "")
+	{
+		chart_bg = "&chf=bg,s," + chart_bg;
+	}
+	
+	
+	// Chart Labels
+	chartlabels=document.forms[0].gcg_labels;
+	labels="";
+	for (i=0;i<chartlabels.length;i++)
+	{
+	  if (chartlabels[i].value)
+	  {
+		labels=labels + chartlabels[i].value;
+		if (chartlabels[i+1].value)
+		{
+		labels=labels + "|";
+		}
+	  }
+	}
+	// Chart Title
+	chart_title_line_1 = document.forms[0].gcg_title_line1.value;
+	if (chart_title_line_1 !="") {
+		chart_title_line_1 = chart_title_line_1.replace(" ", "+");
+		title="&chtt=" + chart_title_line_1;
+		chart_title_line_2 = document.forms[0].gcg_title_line2.value;
+			if (chart_title_line_2 !="") {
+				chart_title_line_2 = chart_title_line_2.replace(" ", "+");
+				title=title + "|" + chart_title_line_2;
+			}
+	}
+	else {
+	chart_title_line_2 = document.forms[0].gcg_title_line2.value;
+	if (chart_title_line_2 !="") {
+			alert("Chart Title Line 1 is empty.");
+		}
+		title="";
+	}
+	
+	if (title !=""){
+		chart_title_font_color = document.forms[0].gcg_title_font_color.value;
+		chart_title_font_size = document.forms[0].gcg_title_font_size.value;
+		if (chart_title_font_color != "") 
+		{
+			if (chart_title_font_size != "") 
+				{
+				title_font="&chts=" + chart_title_font_color + "," + chart_title_font_size;
+				}
+			else
+				{
+				title_font="&chts=" + chart_title_font_color;
+				}
+		}
+		else 
+		{
+				title_font="";
+				if (chart_title_font_size != "")
+				{
+				alert("Chart Tile must have a color if size is specified.");
+				}
+		}
+	}
+	
+	
+	
+	
+
+
+	document.getElementById("chart_link").value="http://chart.apis.google.com/chart?" + charttype + "&chs=" + chart_width + "x" + chart_height + chart_bg + "&chd=t:" + data + "&chl=" + labels + title + title_font;
 	document.getElementById("chart").src=document.getElementById("chart_link").value;
 	}
 </script>
@@ -137,10 +210,10 @@ function gcg_options() {
 		<div id="chart_box" class="postbox">
 		<h3 id="chart_box_hndle" class="hndle">Google Chart</h3>
 		<div id="chart_box_inside" class="inside">
-		<img id="chart" src="http://chart.apis.google.com/chart?cht=p3&chd=s:Uf9a&chs=250x100&chl=January|February|March|April" style="border: 1px solid #D8D1BE" />
+		<img id="chart" src="http://chart.apis.google.com/chart?cht=p3&chs=400x200&chf=bg,s,E7E7E7&chd=t:75,17,12,19,14,35,80&chl=Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday&chtt=Average+Visitors|by+Day&chts=000000,14" style="border: 1px solid #D8D1BE" />
 		<br />
 		<br />
-		<input type="text" id="chart_link" size="50" value="copy this code"><br /><br />
+		<input type="text" id="chart_link" size="90" value="copy this code"><br /><br />
 		<input type="button" class="button-primary" onclick="gcg_create_link()" value="Update Chart">
 		<input type="button" class="button" value="select" onclick="selText()"> 
 		</div>
@@ -156,25 +229,73 @@ function gcg_options() {
 		</div>
 		
 		<div id="chart_size_box" class="postbox">
-		<h3 id="chart_size_box_hndle" class="hndle">Chart Size</h3>
+		<h3 id="chart_size_box_hndle" class="hndle">Chart Image</h3>
 		<div id="chart_size_box_inside" class="inside">
-		<input type="text" size="4" name="gcg_width" value="250">Width<br />
-		<input type="text" size="4" name="gcg_height" value="100">Height<br /></div>
+		<input type="text" size="4" name="gcg_width" value="400"> Width<br />
+		<input type="text" size="4" name="gcg_height" value="200"> Height<br />
+		<input type="text" size="6" name="gcg_bgcolor" value=""> Background Color<br />
+		</div>
+		</div>
+		
+		<div id="chart_title_box" class="postbox">
+		<h3 id="chart_title_box_hndle" class="hndle">Chart Title</h3>
+		<div id="chart_title_box_inside" class="inside">
+		<table cellspacing="10">
+		<td>
+		<input type="text" size="2" name="gcg_title_font_size" value="12"> Font Size<br />
+		<input type="text" size="6" name="gcg_title_font_color" value="000000"> Font Color<br />
+		</td>
+		<td>
+		<input type="text" size="20" id="gcg_title_line1" value="Average Visitors"> Line 1<br />
+		<input type="text" size="20" id="gcg_title_line2" value="by Day"> Line 2<br />
+		</td>
+		</table>
+		</div>
 		</div>
 		
 		<div id="data_points_box" class="postbox">
 		<h3 id="data_points_box_hndle" class="hndle">Data Points</h3>
 		<div id="data_points_box_inside" class="inside">
-		<input type="text" size="4" name="gcg_chartdata" value="15">Data1<br />
-		<input type="text" size="4" name="gcg_chartdata" value="45">Data2<br />
-		<input type="text" size="4" name="gcg_chartdata" value="30">Data3<br />
-		<input type="text" size="4" name="gcg_chartdata" value="85">Data4<br />
-		<input type="text" size="4" name="gcg_chartdata" value="">Data5<br />
-		<input type="text" size="4" name="gcg_chartdata" value="">Data6<br />
-		<input type="text" size="4" name="gcg_chartdata" value="">Data7<br />
-		<input type="text" size="4" name="gcg_chartdata" value="">Data8<br /></div>
+		<table cellspacing="10">
+		<tr>
+		<input type="text" size="4" name="gcg_chartdata" value="15"> Data1 
+		<input type="text" size="6" name="gcg_data_color" value="00B454"> Color		
+		<input type="text" size="10" name="gcg_labels" value="Sunday"> Label<br />
+		</tr>
+		<tr>
+		<input type="text" size="4" name="gcg_chartdata" value="65"> Data2  
+		<input type="text" size="6" name="gcg_data_color" value="104BA9"> Color	
+		<input type="text" size="10" name="gcg_labels" value="Monday"> Label<br />
+		</tr>
+		<tr>
+		<input type="text" size="4" name="gcg_chartdata" value="35"> Data3  
+		<input type="text" size="6" name="gcg_data_color" value="FFA200"> Color	
+		<input type="text" size="10" name="gcg_labels" value="Tuesday"> Label<br />
+		</tr>
+		<tr>
+		<input type="text" size="4" name="gcg_chartdata" value="95"> Data4  
+		<input type="text" size="6" name="gcg_data_color" value="FF3900"> Color	
+		<input type="text" size="10" name="gcg_labels" value="Wednesday"> Label<br />
+		</tr><tr>
+		<input type="text" size="4" name="gcg_chartdata" value=""> Data5  
+		<input type="text" size="10" name="gcg_labels" value=""> Label<br />
+		</tr>
+		<tr>
+		<input type="text" size="4" name="gcg_chartdata" value=""> Data6  
+		<input type="text" size="10" name="gcg_labels" value=""> Label<br />
+		</tr><tr>
+		<input type="text" size="4" name="gcg_chartdata" value=""> Data7  
+		<input type="text" size="10" name="gcg_labels" value=""> Label<br />
+		</tr>
+		<tr>
+		<input type="text" size="4" name="gcg_chartdata" value=""> Data8   
+		<input type="text" size="10" name="gcg_labels" value=""> Label<br />
+		</tr>
+			
+		</table>
 		</div>
-	
+		</div>
+		
 		
 </form>
 
