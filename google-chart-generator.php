@@ -36,7 +36,6 @@ function gcg_chart_now() {
 
 add_action('admin_menu', 'gcg_menu');
 add_action('admin_head', 'gcg_head');
-add_action('wp_head', 'gcg_head');
 
 function gcg_menu() {
   add_options_page('Google Chart Generator Options', 'Google Chart Generator', 8, __FILE__, 'gcg_options');
