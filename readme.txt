@@ -28,9 +28,7 @@ Allows the user to create and insert a Google Chart.
 
 No!  :)
 
-= Do I need to register with Google and create something like a Deveoplor API Key or something else I 
-
-don't understand? =
+= Do I need to register with Google and create something like a Deveoplor API Key or something else I don't understand? =
 
 No!  :)
 
@@ -40,11 +38,7 @@ Yes!  :)
 
 = What do I do after installing it? =
 
-Simply click the buttons and create the chart you like. Version 1.0.3 allows you to insert titles, 
-
-labels, and customize the colors to your liking. After you get the chart looking the way you want it, 
-
-select the link, copy, and paste into a widget, post, page, e-mail, etc.
+Simply click the buttons and create the chart you like. Version 1.0.3 allows you to insert titles, labels, and customize the colors to your liking. After you get the chart looking the way you want it, select the link, copy, and paste into a widget, post, page, e-mail, etc.
 
 
 == Screenshots ==
