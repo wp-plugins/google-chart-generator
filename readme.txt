@@ -5,7 +5,7 @@ http://brockangelo.com/wordpress/plugins/google-chart-generator
 Tags: post, insert, google, api, charts, graphs, data
 Requires at least: 2.1.0
 Tested up to: 2.7.1
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 
 
 Allows the user to create and insert a Google Chart.
@@ -28,7 +28,9 @@ Allows the user to create and insert a Google Chart.
 
 No!  :)
 
-= Do I need to register with Google and create something like a Deveoplor API Key or something else I don't understand? =
+= Do I need to register with Google and create something like a Deveoplor API Key or something else I 
+
+don't understand? =
 
 No!  :)
 
@@ -36,19 +38,34 @@ No!  :)
 
 Yes!  :)
 
+= What do I do after installing it? =
+
+Simply click the buttons and create the chart you like. Version 1.0.3 allows you to insert titles, 
+
+labels, and customize the colors to your liking. After you get the chart looking the way you want it, 
+
+select the link, copy, and paste into a widget, post, page, e-mail, etc.
+
 
 == Screenshots ==
 
 Check out a live demo at the <a href="http://brockangelo.com/wordpress/plugins/google-chart-generator/">plugin homepage</a>.
+
+1. The top of the options page shows you a sample graph.
+1. Insert the data you'd like to graph...
+1. See the results of your hard labor.  :-)
 
 
 == Changelog ==
 
 Planned Features:
 
+1. I plan to customize the input depending on what type of chart you are using. This will give much better results.
+1. Once I get static data input pretty polished, I'll move on to link this into the WordPress database so you can see dynamic charts for things like "Today's Visitors were from these continents". Pretty dang shlick.
 1. Add button on the write post screen. (for write/edit and posts/pages)
 1. Save charts to a table so that you can insert "favorite charts"
 
+* Version 1.0.3: Added chart title, background color, labels, data color. IE does not look good. I promise I'll work on that. Try Firefox for best results.
 * Version 1.0.2: General scrambling associated with an unplanned beta release.
 * Version 1.0.1: I accidentally release this to the public before it was ready, so I decided to go ahead and release what I have now. I'm actively developing this, so please leave <a href="http://brockangelo.com/wordpress/plugins/google-chart-generator/">feedback</a>.
-* Version 1.0: Very basic version. My goal is to get this thing off the ground as soon as possible. 
+* Version 1.0: Very basic version. My goal is to get this thing off the ground as soon as possible.
