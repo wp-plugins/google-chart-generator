@@ -5,7 +5,7 @@ http://brockangelo.com/wordpress/plugins/google-chart-generator
 Tags: post, insert, google, api, charts, graphs, data
 Requires at least: 2.1.0
 Tested up to: 2.7.1
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 
 
 Allows the user to create and insert a Google Chart.
@@ -47,18 +47,19 @@ Check out a live demo at the <a href="http://brockangelo.com/wordpress/plugins/g
 
 1. The top of the options page shows you a sample graph.
 1. Insert the data you'd like to graph...
-1. See the results of your hard labor.  :-)
+1. You can now insert data labels, axis labels, etc.  :-)
 
 
 == Changelog ==
 
 Planned Features:
 
-1. I plan to customize the input depending on what type of chart you are using. This will give much better results.
-1. Once I get static data input pretty polished, I'll move on to link this into the WordPress database so you can see dynamic charts for things like "Today's Visitors were from these continents". Pretty dang shlick.
+1. Dynamically updated charts are getting closer. You'll be able to create charts for things like "Today's Visitors were from these continents". Pretty dang shlick.
 1. Add button on the write post screen. (for write/edit and posts/pages)
 1. Save charts to a table so that you can insert "favorite charts"
+1. Create "Chart Groups" so that you can easily change the appearance of charts across your site.
 
+* Version 1.0.4: Added Data Point Labels and Axis Labels for Line & Bar Charts.
 * Version 1.0.3: Added chart title, background color, labels, data color. IE does not look good. I promise I'll work on that. Try Firefox for best results.
 * Version 1.0.2: General scrambling associated with an unplanned beta release.
 * Version 1.0.1: I accidentally release this to the public before it was ready, so I decided to go ahead and release what I have now. I'm actively developing this, so please leave <a href="http://brockangelo.com/wordpress/plugins/google-chart-generator/">feedback</a>.
