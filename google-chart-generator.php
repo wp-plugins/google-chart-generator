@@ -23,17 +23,6 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-
-# add_action('google_chart_generator', 'delete_spam_now');
-
-# function gcg_start_schedule() {
-# 	wp_schedule_event(time(), 'daily', 'google_chart_generator');
-# }
-
-function gcg_chart_now() {
-	global $wpdb;
-}
-
 add_action('admin_menu', 'gcg_menu');
 add_action('admin_head', 'gcg_head');
 
@@ -45,41 +34,10 @@ function gcg_head() {
 	?>
 <script type="text/javascript">
 
-	
-	function check(gcg_charttype)
-		{
-		document.getElementById("chart_link").value=gcg_charttype;
-		}
 	function selText()
 		{
-		document.getElementByName("chart_link").select();
+		document.getElementById("chart_link").select();
 		}
-		
-	function gcg_form_reset(form_input)
-	{
-	document.getElementById(form_input).reset();
-	}
-
-
-	function gcg_radio_check(chart_selected) {
-	
-		if (chart_selected == "p3") {
-		document.getElementById("pie_chart_data_points_box").style.display = "block";
-		document.getElementById("line_chart_data_points_box").style.display = "none";
-		}
-		if (chart_selected == "lc") {
-		document.getElementById("line_chart_data_points_box").style.display = "block";
-		document.getElementById("pie_chart_data_points_box").style.display = "none";
-		}
-		if (chart_selected == "bvs") {
-		document.getElementById("pie_chart_data_points_box").style.display = "block";
-		}
-		if (chart_selected == "gom") {
-		document.getElementById("pie_chart_data_points_box").style.display = "none";
-		}
-	
-	}
-	
 
 	function gcg_create_link()
 	{
@@ -142,8 +100,19 @@ function gcg_head() {
 		}
 	}
 	var labelstring = labels.join("|");
-	if (labelstring != "") {
+	if ((labelstring != "") && (charttype != "cht=lc")){
 	labelstring = "&chl=" + labelstring;
+	} else if ((labelstring != "") && ((charttype == "cht=lc") || (charttype == "cht=bvs"))){
+	labelstring = "&chxt=x&chxl=0:|" + labelstring;
+	}
+
+	// Show Chart Data Point Labels
+	
+	if (document.forms[0].gcg_chart_point_labels.checked) {
+		data_point_labels = "&chm=N*f0*,000000,0,-1,11";
+	}
+	else {
+	data_point_labels = "";
 	}
 	
 	// Chart Title
@@ -189,18 +158,10 @@ function gcg_head() {
 		}
 	}
 	
-	
-	
-	
-
-	if (charttype == "cht=p3" || charttype == "cht=bvs" || charttype == "cht=gom"){
-	document.getElementById("chart_link").value="http://chart.apis.google.com/chart?" + charttype + "&chs=" + chart_width + "x" + chart_height + chart_bg + "&chd=t:" + data + data_color_string + labelstring + title + title_font;
-	}
-	if (charttype == "cht=lc") {
-	document.getElementById("chart_link").value="http://chart.apis.google.com/chart?" + charttype + "&chs=" + chart_width + "x" + chart_height + chart_bg + "&chd=t:" + data + data_color_string + labelstring + title + title_font;
-	}
+	document.getElementById("chart_link").value="http://chart.apis.google.com/chart?" + charttype + "&chs=" + chart_width + "x" + chart_height + chart_bg + "&chd=t:" + data + data_color_string + data_point_labels + labelstring + title + title_font;
 	document.getElementById("chart").src=document.getElementById("chart_link").value;
-	}
+	
+}
 </script>
 
 <?php
@@ -228,22 +189,22 @@ function gcg_options() {
 		</div>
 		<div id="gcg_sidebar" class="postbox">
 		<h3 class="hndle">
-		<span>Version Notes: 1.0.3</span>
+		<span>Version Notes: 1.0.4</span>
 		</h3>
 		<div class="inside">
 		<ul>
-		<li>Chart Titles and colors rock! Have you <a href="http://wordpress.org/extend/plugins/google-chart-generator/">rated this plugin</a> yet?<br/>
+		<li>Data Points and Axis Labels! Have you <a href="http://wordpress.org/extend/plugins/google-chart-generator/">rated this plugin</a> yet?<br/>
 		<br />
 		Ideas & Known Issues:<br /><br />
-		1. Doesn't actually support 8 data sets.<br />
-		2. There are so many more Google Charts. More to come.<br />
-		3. I plan to customize the input depending on what type of chart you are using. This will give much better results.<br />
-		4. Once I get static data input pretty polished, I'll move on to link this into the WordPress database so you can see dynamic charts for things like "Today's Visitors were from these continents". Pretty dan shlick.<br />
-		5. Add button on the write post screen. (for write/edit and posts/pages)<br />
-		6. Save charts to a table so that you can insert "favorite charts"<br />
-		7. IE looks really crappy. I know. I'll work on that tomorrow. <br /><br />
+		1. Now supports up to 8 data points!<br />
+		2. The labels box will now give you the most relevant looking results possible: if you are using a bar chart, the labels used are called "Axis Labels" (according to Google) but when you switch over to a Pie Chart, the labels intelligently move to become data points.<br />
+		3. IE no longer looks <i>really</i> crappy.<br />
+		4. Data Points Labels! Add these to Line & Bar charts.<br />
+		5. Once I get static data input pretty polished, I'll move on to link this into the WordPress database so you can see dynamic charts for things like "Today's Visitors were from these continents". Pretty dang shlick.<br />
+		6. Add button on the write post screen. (for write/edit and posts/pages)<br />
+		7. Save charts to a table so that you can insert "favorite charts"<br /><br />
 
-		If you like the direction this plugin is headed, please <a href="http://brockangelo.com/wordpress/plugins/google-chart-generator/">leave feedback</a> and <a href="http://wordpress.org/extend/plugins/google-chart-generator/">give me five stars</a>.</li><br />
+		If you like the direction this plugin is headed, please <a href="http://brockangelo.com/wordpress/plugins/google-chart-generator/">leave feedback</a>, spread the word, or <a href="http://wordpress.org/extend/plugins/google-chart-generator/">give me some stars</a>.</li><br />
 		</ul>
 		</div>
 		</div>
@@ -257,12 +218,16 @@ function gcg_options() {
 		<div id="chart_box" class="postbox">
 		<h3 id="chart_box_hndle" class="hndle">Google Chart</h3>
 		<div id="chart_box_inside" class="inside">
-		<img id="chart" src="http://chart.apis.google.com/chart?cht=p3&chs=400x200&chf=bg,s,E7E7E7&chd=t:75,17,12,19,14,35,80&chl=Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday&chtt=Average+Visitors|by+Day&chts=000000,14" style="border: 1px solid #D8D1BE" />
+		<table cellspacing="10">
+		<td width="250">
+		<img id="chart" src="http://chart.apis.google.com/chart?cht=lc&chs=500x300&chf=bg,s,E7E7E7&chd=t:41,100,22,72,26&chm=N*f0*,000000,0,-1,11&chxt=x&chxl=0:|Mon|Tue|Wed|Thur|Fri&chtt=Daily+Downloads|for+this plugin&chts=000000,16" />
 		<br />
 		<br />
 		<input type="text" id="chart_link" size="50" value="copy this code"><br /><br />
 		<input type="button" class="button-primary" onclick="gcg_create_link()" value="Update Chart">
 		<input type="button" class="button" value="select" onclick="selText()"> 
+		</td>
+		</table>
 		</div>
 		</div>
 		
@@ -277,8 +242,8 @@ function gcg_options() {
 		<input type="radio" name="gcg_charttype" value="gom">Google-o-Meter<br />
 		</td>
 		<td width="250">
-		<input type="text" size="6" name="gcg_width" value="400"> Width<br />
-		<input type="text" size="6" name="gcg_height" value="200"> Height<br />
+		<input type="text" size="6" name="gcg_width" value="500"> Width<br />
+		<input type="text" size="6" name="gcg_height" value="300"> Height<br />
 		<input type="text" size="6" name="gcg_bgcolor" value="E7E7E7"> Background Color<br />
 		</td>
 		</table>
@@ -291,11 +256,11 @@ function gcg_options() {
 		<div id="chart_title_box_inside" class="inside">
 		<table cellspacing="10">
 		<td width="250">
-		<input type="text" size="20" id="gcg_title_line1" value="Average Visitors"> Line 1<br />
-		<input type="text" size="20" id="gcg_title_line2" value="by Day"> Line 2<br />
+		<input type="text" size="20" id="gcg_title_line1" value="Daily Downloads"> Line 1<br />
+		<input type="text" size="20" id="gcg_title_line2" value="for this plugin"> Line 2<br />
 		</td>
 		<td width="250">
-		<input type="text" size="6" name="gcg_title_font_size" value="12"> Font Size<br />
+		<input type="text" size="6" name="gcg_title_font_size" value="16"> Font Size<br />
 		<input type="text" size="6" name="gcg_title_font_color" value="000000"> Font Color<br />
 		</td>
 		</table>
@@ -306,49 +271,49 @@ function gcg_options() {
 		<h3 id="data_points_box_hndle" class="hndle">Data Points</h3>
 		<div id="data_points_box_inside" class="inside">
 		<table cellspacing="10">
-		<tr>
-		<tr>
-		<input type="text" size="4" name="gcg_chartdata" value="15"> Data1 
-		<input type="text" size="6" name="gcg_data_color" value=""> Color		
-		<input type="text" size="10" name="gcg_labels" value="15"> Label<br />
-		</tr>
-		<tr>
-		<input type="text" size="4" name="gcg_chartdata" value="75"> Data2  
+		<td width="450">
+		
+		<input type="text" size="4" name="gcg_chartdata" value="41"> Data1 
+		<input type="text" size="6" name="gcg_data_color" value="006600"> Color		
+		<input type="text" size="10" name="gcg_labels" value="Mon"> Label<br />
+
+		<input type="text" size="4" name="gcg_chartdata" value="100"> Data2  
 		<input type="text" size="6" name="gcg_data_color" value=""> Color	
-		<input type="text" size="10" name="gcg_labels" value="75"> Label<br />
-		</tr>
-		<tr>
-		<input type="text" size="4" name="gcg_chartdata" value="5"> Data3  
+		<input type="text" size="10" name="gcg_labels" value="Tue"> Label<br />
+
+		<input type="text" size="4" name="gcg_chartdata" value="22"> Data3  
 		<input type="text" size="6" name="gcg_data_color" value=""> Color	
-		<input type="text" size="10" name="gcg_labels" value="5"> Label<br />
-		</tr>
-		<tr>
-		<input type="text" size="4" name="gcg_chartdata" value="85"> Data4  
+		<input type="text" size="10" name="gcg_labels" value="Wed"> Label<br />
+
+		<input type="text" size="4" name="gcg_chartdata" value="72"> Data4  
 		<input type="text" size="6" name="gcg_data_color" value=""> Color	
-		<input type="text" size="10" name="gcg_labels" value="85"> Label<br />
-		</tr>
-		<tr>
-		<input type="text" size="4" name="gcg_chartdata" value=""> Data5  
+		<input type="text" size="10" name="gcg_labels" value="Thur"> Label<br />
+
+		<input type="text" size="4" name="gcg_chartdata" value="26"> Data5  
 		<input type="text" size="6" name="gcg_data_color" value=""> Color	
-		<input type="text" size="10" name="gcg_labels" value=""> Label<br />
-		</tr>
-		<tr>
+		<input type="text" size="10" name="gcg_labels" value="Fri"> Label<br />
+
 		<input type="text" size="4" name="gcg_chartdata" value=""> Data6  
 		<input type="text" size="6" name="gcg_data_color" value=""> Color	
 		<input type="text" size="10" name="gcg_labels" value=""> Label<br />
-		</tr>
-		<tr>
-		<input type="text" size="4" name="gcg_chartdata" value=""> Data6  
+
+		<input type="text" size="4" name="gcg_chartdata" value=""> Data7  
 		<input type="text" size="6" name="gcg_data_color" value=""> Color	
 		<input type="text" size="10" name="gcg_labels" value=""> Label<br />
-		</tr>
-		</tr>
-		<tr>
-		<td>
+
+		<input type="text" size="4" name="gcg_chartdata" value=""> Data8  
+		<input type="text" size="6" name="gcg_data_color" value=""> Color	
+		<input type="text" size="10" name="gcg_labels" value=""> Label<br />
+		
+		<br /><br />
+
 		<input type="button" class="button-primary" onclick="gcg_create_link()" value="Update Chart">
 		<input type="button" class="button" onclick="document.forms[0].reset()" value="reset all data"><br />
 		</td>
-		</tr>
+		
+		<td width="450" align="right" valign="top">
+		<input type="checkbox" name="gcg_chart_point_labels" checked="checked"> Data Point Labels <i><small>(for Line & Bar charts)</small></i>
+		</td>
 		</table>
 		</div>
 		</div>
