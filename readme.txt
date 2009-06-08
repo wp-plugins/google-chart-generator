@@ -12,7 +12,10 @@ Allows the user to create and insert a Google Chart.
 
 == Description ==
 
-Creating charts has never been easier. This plugin allows the user to create and insert a Google Chart in just a few short clicks. Check out the <a href="http://brockangelo.com/wordpress/plugins/google-chart-generator/">working online demo</a> to see for yourself.
+Creating charts has never been easier. Heck, you'd almost call it fun.
+
+This plugin allows the user to create and insert a Google Chart in just a few short clicks. Check out the <a href="http://brockangelo.com/wordpress/plugins/google-chart-generator/">working online demo</a> to see for yourself.
+
 
 == Installation ==
 
