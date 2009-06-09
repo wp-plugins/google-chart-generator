@@ -48,6 +48,7 @@ Simply click the buttons and create the chart you like. Version 1.0.3 allows you
 1. The top of the options page shows you a sample graph.
 1. Insert the data you'd like to graph...
 1. You can now insert data labels, axis labels, etc.  :-)
+1. Having fun with the charts
 
 
 == Changelog ==
