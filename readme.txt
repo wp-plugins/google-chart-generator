@@ -51,6 +51,8 @@ Check out a live demo at the <a href="http://brockangelo.com/wordpress/plugins/g
 1. The top of the options page shows you a sample graph.
 1. Insert the data you'd like to graph...
 1. You can now insert data labels, axis labels, etc.  :-)
+1. Having fun with the charts
+
 
 
 == Changelog ==
